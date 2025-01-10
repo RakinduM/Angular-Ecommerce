@@ -1,16 +1,18 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Product } from '../../../models/products.model';
-import { PrimaryButtonComponent } from "../../../components/primary-button/primary-button.component";
+import { PrimaryButtonComponent } from '../../../components/primary-button/primary-button.component';
+import { CartService } from '../../../services/cart.service';
 
 @Component({
   selector: 'app-product-card',
   imports: [PrimaryButtonComponent],
   templateUrl: './product-card.component.html',
-  styleUrl: './product-card.component.scss'
+  styleUrl: './product-card.component.scss',
 })
 export class ProductCardComponent {
-addToCart() {
-throw new Error('Method not implemented.');
-}
+  cartService = inject(CartService);
+  addToCart() {
+    this.cartService.addToCart(this.product());
+  }
   product = input.required<Product>();
 }
